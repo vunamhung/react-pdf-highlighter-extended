@@ -1,17 +1,13 @@
 {
-  "name": "react-pdf-highlighter-extended",
-  "version": "8.0.0",
+  "name": "@vunamhung/react-pdf-highlighter",
+  "version": "8.1.2",
   "description": "Set of modern React components for PDF highlighting",
-  "author": "Daniel Arnould <daniel.s.arnould@gmail.com>",
+  "author": "Vu Nam Hung <vunamhhung@gmail.com>",
   "license": "MIT",
   "contributors": [
     {
-      "name": "Daniel Arnould",
-      "email": "daniel.s.arnould@gmail.com"
-    },
-    {
-      "name": "Artem Tyurin",
-      "email": "artem.tyurin@gmail.com"
+      "name": "Vu Nam Hung",
+      "email": "vunamhung@gmail.com"
     }
   ],
   "keywords": [
@@ -51,10 +47,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanielArnould/react-pdf-highlighter.git"
+    "url": "git+https://github.com/vunamhung/react-pdf-highlighter-extended.git"
   },
   "bugs": {
-    "url": "https://github.com/DanielArnould/react-pdf-highlighter-extended/issues"
+    "url": "https://github.com/vunamhung/react-pdf-highlighter-extended/issues"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",
