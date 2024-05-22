@@ -25,7 +25,7 @@
   border-radius: 4px;
 }
 
-.Tip__card input[type="submit"] {
+.Tip__card input[type='submit'] {
   margin-top: 0.5rem;
   padding: 10px 16px;
   font-size: 16px;
@@ -37,7 +37,7 @@
   transition: background-color 0.3s;
 }
 
-.Tip__card input[type="submit"]:hover {
+.Tip__card input[type='submit']:hover {
   background-color: #1565c0;
   border-color: #1565c0;
 }

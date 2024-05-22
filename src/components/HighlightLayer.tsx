@@ -1,21 +1,12 @@
-import { PDFViewer } from "pdfjs-dist/types/web/pdf_viewer";
-import React, { ReactNode } from "react";
-import {
-  HighlightContainerUtils,
-  HighlightContext,
-} from "../contexts/HighlightContext";
-import { scaledPositionToViewport, viewportToScaled } from "../lib/coordinates";
-import screenshot from "../lib/screenshot";
-import {
-  GhostHighlight,
-  Highlight,
-  HighlightBindings,
-  LTWH,
-  LTWHP,
-  ViewportHighlight,
-} from "../types";
+import type { ReactNode } from 'react';
+import type { GhostHighlight, Highlight, HighlightBindings, LTWH, LTWHP, ViewportHighlight } from '../types';
+import React from 'react';
+import { PDFViewer } from 'pdfjs-dist/types/web/pdf_viewer';
+import { HighlightContainerUtils, HighlightContext } from '../contexts/HighlightContext';
+import { scaledPositionToViewport, viewportToScaled } from '../lib/coordinates';
+import screenshot from '../lib/screenshot';
 
-const EMPTY_ID = "empty-id";
+const EMPTY_ID = 'empty-id';
 
 /**
  * The props type for {@link HighlightLayer}.
@@ -66,14 +57,7 @@ export interface HighlightLayerProps {
  * @category Component
  * @internal
  */
-export const HighlightLayer = ({
-  highlightsByPage,
-  pageNumber,
-  scrolledToHighlightId,
-  viewer,
-  highlightBindings,
-  children,
-}: HighlightLayerProps) => {
+export const HighlightLayer = ({ highlightsByPage, pageNumber, scrolledToHighlightId, viewer, highlightBindings, children }: HighlightLayerProps) => {
   const currentHighlights = highlightsByPage[pageNumber] || [];
 
   return (
@@ -81,13 +65,11 @@ export const HighlightLayer = ({
       {currentHighlights.map((highlight, index) => {
         const viewportHighlight: ViewportHighlight = {
           ...highlight,
-          id: "id" in highlight ? highlight.id : EMPTY_ID, // Give Empty ID to GhostHighlight
+          id: 'id' in highlight ? highlight.id : EMPTY_ID, // Give Empty ID to GhostHighlight
           position: scaledPositionToViewport(highlight.position, viewer),
         };
 
-        const isScrolledTo = Boolean(
-          scrolledToHighlightId === viewportHighlight.id,
-        );
+        const isScrolledTo = Boolean(scrolledToHighlightId === viewportHighlight.id);
 
         const highlightUtils: HighlightContainerUtils = {
           highlight: viewportHighlight,
@@ -98,8 +80,7 @@ export const HighlightLayer = ({
 
             return viewportToScaled(rect, viewport);
           },
-          screenshot: (boundingRect: LTWH) =>
-            screenshot(boundingRect, pageNumber, viewer),
+          screenshot: (boundingRect: LTWH) => screenshot(boundingRect, pageNumber, viewer),
           isScrolledTo: isScrolledTo,
           highlightBindings,
         };

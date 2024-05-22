@@ -1,4 +1,5 @@
-import React, { ReactNode, useEffect, useRef } from "react";
+import type { ReactNode } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 /**
  * The props type for {@link MouseMonitor}.
@@ -36,25 +37,17 @@ export interface MouseMonitorProps {
  * @category Component
  * @internal
  */
-export const MouseMonitor = ({
-  onMoveAway,
-  paddingX,
-  paddingY,
-  children,
-}: MouseMonitorProps) => {
+export const MouseMonitor = ({ onMoveAway, paddingX, paddingY, children }: MouseMonitorProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const onMouseMove = (event: MouseEvent) => {
     if (!containerRef.current) return;
 
     const { clientX, clientY } = event;
-    const { left, top, width, height } =
-      containerRef.current.getBoundingClientRect();
+    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
 
-    const inBoundsX =
-      clientX > left - paddingX && clientX < left + width + paddingX;
-    const inBoundsY =
-      clientY > top - paddingY && clientY < top + height + paddingY;
+    const inBoundsX = clientX > left - paddingX && clientX < left + width + paddingX;
+    const inBoundsY = clientY > top - paddingY && clientY < top + height + paddingY;
 
     if (!(inBoundsX && inBoundsY)) {
       onMoveAway();
@@ -63,10 +56,10 @@ export const MouseMonitor = ({
 
   useEffect(() => {
     // TODO: Maybe optimise or throttle?
-    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener('mousemove', onMouseMove);
 
     return () => {
-      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener('mousemove', onMouseMove);
     };
   }, []);
 

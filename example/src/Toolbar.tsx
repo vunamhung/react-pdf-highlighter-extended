@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-
-import "./style/Toolbar.css";
+import React, { useState } from 'react';
+import './style/Toolbar.css';
 
 interface ToolbarProps {
   setPdfScaleValue: (value: number) => void;
@@ -38,7 +37,7 @@ const Toolbar = ({ setPdfScaleValue }: ToolbarProps) => {
       <div className="ZoomControls">
         <button onClick={zoomIn}>+</button>
         <button onClick={zoomOut}>-</button>
-        {zoom ? `${(zoom * 100).toFixed(0)}%` : "Auto"}
+        {zoom ? `${(zoom * 100).toFixed(0)}%` : 'Auto'}
       </div>
     </div>
   );

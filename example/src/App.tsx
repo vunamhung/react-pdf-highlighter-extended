@@ -1,49 +1,36 @@
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
-import CommentForm from "./CommentForm";
-import ContextMenu, { ContextMenuProps } from "./ContextMenu";
-import ExpandableTip from "./ExpandableTip";
-import HighlightContainer from "./HighlightContainer";
-import Sidebar from "./Sidebar";
-import Toolbar from "./Toolbar";
-import {
-  GhostHighlight,
-  Highlight,
-  PdfHighlighter,
-  PdfHighlighterUtils,
-  PdfLoader,
-  Tip,
-  ViewportHighlight,
-} from "./react-pdf-highlighter-extended";
-import "./style/App.css";
-import { testHighlights as _testHighlights } from "./test-highlights";
-import { CommentedHighlight } from "./types";
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import CommentForm from './CommentForm';
+import ContextMenu, { ContextMenuProps } from './ContextMenu';
+import ExpandableTip from './ExpandableTip';
+import HighlightContainer from './HighlightContainer';
+import { GhostHighlight, Highlight, PdfHighlighter, PdfHighlighterUtils, PdfLoader, Tip, ViewportHighlight } from './react-pdf-highlighter-extended';
+import Sidebar from './Sidebar';
+import Toolbar from './Toolbar';
+import './style/App.css';
+import { testHighlights as _testHighlights } from './test-highlights';
+import { CommentedHighlight } from './types';
 
 const TEST_HIGHLIGHTS = _testHighlights;
-const PRIMARY_PDF_URL = "https://arxiv.org/pdf/2203.11115.pdf";
-const SECONDARY_PDF_URL = "https://arxiv.org/pdf/1604.02480.pdf";
-const LONG_LOADING_PDF_URL =
-  "https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK";
+const PRIMARY_PDF_URL = 'https://arxiv.org/pdf/2203.11115';
+const SECONDARY_PDF_URL = 'https://arxiv.org/pdf/1604.02480';
+const LONG_LOADING_PDF_URL = 'https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK';
 
 const getNextId = () => String(Math.random()).slice(2);
 
 const parseIdFromHash = () => {
-  return document.location.hash.slice("#highlight-".length);
+  return document.location.hash.slice('#highlight-'.length);
 };
 
 const resetHash = () => {
-  document.location.hash = "";
+  document.location.hash = '';
 };
 
 const App = () => {
   const [url, setUrl] = useState(PRIMARY_PDF_URL);
-  const [highlights, setHighlights] = useState<Array<CommentedHighlight>>(
-    TEST_HIGHLIGHTS[PRIMARY_PDF_URL] ?? [],
-  );
+  const [highlights, setHighlights] = useState<Array<CommentedHighlight>>(TEST_HIGHLIGHTS[PRIMARY_PDF_URL] ?? []);
   const currentPdfIndexRef = useRef(0);
   const [contextMenu, setContextMenu] = useState<ContextMenuProps | null>(null);
-  const [pdfScaleValue, setPdfScaleValue] = useState<number | undefined>(
-    undefined,
-  );
+  const [pdfScaleValue, setPdfScaleValue] = useState<number | undefined>(undefined);
 
   // Refs for PdfHighlighter utilities
   const highlighterUtilsRef = useRef<PdfHighlighterUtils>();
@@ -63,17 +50,14 @@ const App = () => {
       }
     };
 
-    document.addEventListener("click", handleClick);
+    document.addEventListener('click', handleClick);
 
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener('click', handleClick);
     };
   }, [contextMenu]);
 
-  const handleContextMenu = (
-    event: MouseEvent<HTMLDivElement>,
-    highlight: ViewportHighlight,
-  ) => {
+  const handleContextMenu = (event: MouseEvent<HTMLDivElement>, highlight: ViewportHighlight) => {
     event.preventDefault();
 
     setContextMenu({
@@ -85,25 +69,18 @@ const App = () => {
   };
 
   const addHighlight = (highlight: GhostHighlight, comment: string) => {
-    console.log("Saving highlight", highlight);
+    console.log('Saving highlight', highlight);
     setHighlights([{ ...highlight, comment, id: getNextId() }, ...highlights]);
   };
 
   const deleteHighlight = (highlight: ViewportHighlight | Highlight) => {
-    console.log("Deleting highlight", highlight);
+    console.log('Deleting highlight', highlight);
     setHighlights(highlights.filter((h) => h.id != highlight.id));
   };
 
-  const editHighlight = (
-    idToUpdate: string,
-    edit: Partial<CommentedHighlight>,
-  ) => {
+  const editHighlight = (idToUpdate: string, edit: Partial<CommentedHighlight>) => {
     console.log(`Editing highlight ${idToUpdate} with `, edit);
-    setHighlights(
-      highlights.map((highlight) =>
-        highlight.id === idToUpdate ? { ...highlight, ...edit } : highlight,
-      ),
-    );
+    setHighlights(highlights.map((highlight) => (highlight.id === idToUpdate ? { ...highlight, ...edit } : highlight)));
   };
 
   const resetHighlights = () => {
@@ -147,26 +124,22 @@ const App = () => {
 
   // Hash listeners for autoscrolling to highlights
   useEffect(() => {
-    window.addEventListener("hashchange", scrollToHighlightFromHash);
+    window.addEventListener('hashchange', scrollToHighlightFromHash);
 
     return () => {
-      window.removeEventListener("hashchange", scrollToHighlightFromHash);
+      window.removeEventListener('hashchange', scrollToHighlightFromHash);
     };
   }, [scrollToHighlightFromHash]);
 
   return (
-    <div className="App" style={{ display: "flex", height: "100vh" }}>
-      <Sidebar
-        highlights={highlights}
-        resetHighlights={resetHighlights}
-        toggleDocument={toggleDocument}
-      />
+    <div className="App" style={{ display: 'flex', height: '100vh' }}>
+      <Sidebar highlights={highlights} resetHighlights={resetHighlights} toggleDocument={toggleDocument} />
       <div
         style={{
-          height: "100vh",
-          width: "75vw",
-          overflow: "hidden",
-          position: "relative",
+          height: '100vh',
+          width: '75vw',
+          overflow: 'hidden',
+          position: 'relative',
           flexGrow: 1,
         }}
       >
@@ -184,13 +157,10 @@ const App = () => {
               selectionTip={<ExpandableTip addHighlight={addHighlight} />}
               highlights={highlights}
               style={{
-                height: "calc(100% - 41px)",
+                height: 'calc(100% - 41px)',
               }}
             >
-              <HighlightContainer
-                editHighlight={editHighlight}
-                onContextMenu={handleContextMenu}
-              />
+              <HighlightContainer editHighlight={editHighlight} onContextMenu={handleContextMenu} />
             </PdfHighlighter>
           )}
         </PdfLoader>

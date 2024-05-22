@@ -1,29 +1,20 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
-import type { PDFDocumentLoadingTask, PDFDocumentProxy } from "pdfjs-dist";
-import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
-import {
-  DocumentInitParameters,
-  OnProgressParameters,
-  TypedArray,
-} from "pdfjs-dist/types/src/display/api";
+import type { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdfjs-dist';
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist/legacy/build/pdf';
+import { DocumentInitParameters, OnProgressParameters, TypedArray } from 'pdfjs-dist/types/src/display/api';
 
 const DEFAULT_BEFORE_LOAD = (progress: OnProgressParameters) => (
-  <div style={{ color: "black" }}>
-    Loading {Math.floor((progress.loaded / progress.total) * 100)}%
-  </div>
+  <div style={{ color: 'black' }}>Loading {Math.floor((progress.loaded / progress.total) * 100)}%</div>
 );
 
-const DEFAULT_ERROR_MESSAGE = (error: Error) => (
-  <div style={{ color: "black" }}>{error.message}</div>
-);
+const DEFAULT_ERROR_MESSAGE = (error: Error) => <div style={{ color: 'black' }}>{error.message}</div>;
 
 const DEFAULT_ON_ERROR = (error: Error) => {
   throw new Error(`Error loading PDF document: ${error.message}!`);
 };
 
-const DEFAULT_WORKER_SRC =
-  "https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js";
+const DEFAULT_WORKER_SRC = 'https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js';
 
 /**
  * The props type for {@link PdfLoader}.
@@ -94,8 +85,7 @@ export const PdfLoader = ({
   const pdfDocumentRef = useRef<PDFDocumentProxy | null>(null);
 
   const [error, setError] = useState<Error | null>(null);
-  const [loadingProgress, setLoadingProgress] =
-    useState<OnProgressParameters | null>(null);
+  const [loadingProgress, setLoadingProgress] = useState<OnProgressParameters | null>(null);
 
   // Intitialise document
   useEffect(() => {
@@ -110,7 +100,7 @@ export const PdfLoader = ({
         pdfDocumentRef.current = pdfDocument;
       })
       .catch((error: Error) => {
-        if (error.message != "Worker was destroyed") {
+        if (error.message != 'Worker was destroyed') {
           setError(error);
           onError(error);
         }
@@ -130,9 +120,5 @@ export const PdfLoader = ({
     };
   }, [document]);
 
-  return error
-    ? errorMessage(error)
-    : loadingProgress
-      ? beforeLoad(loadingProgress)
-      : pdfDocumentRef.current && children(pdfDocumentRef.current);
+  return error ? errorMessage(error) : loadingProgress ? beforeLoad(loadingProgress) : pdfDocumentRef.current && children(pdfDocumentRef.current);
 };

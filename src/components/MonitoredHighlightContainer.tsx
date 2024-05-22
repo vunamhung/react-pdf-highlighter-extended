@@ -1,7 +1,8 @@
-import React, { ReactNode, useRef } from "react";
-import { usePdfHighlighterContext } from "../contexts/PdfHighlighterContext";
-import { Tip } from "../types";
-import { MouseMonitor } from "./MouseMonitor";
+import type { ReactNode } from 'react';
+import type { Tip } from '../types';
+import React, { useRef } from 'react';
+import { usePdfHighlighterContext } from '../contexts/PdfHighlighterContext';
+import { MouseMonitor } from './MouseMonitor';
 
 /**
  * The props type for {@link MonitoredHighlightContainer}.
@@ -41,12 +42,7 @@ export interface MonitoredHighlightContainerProps {
  *
  * @category Component
  */
-export const MonitoredHighlightContainer = ({
-  onMouseEnter,
-  highlightTip,
-  onMouseLeave,
-  children,
-}: MonitoredHighlightContainerProps) => {
+export const MonitoredHighlightContainer = ({ onMouseEnter, highlightTip, onMouseLeave, children }: MonitoredHighlightContainerProps) => {
   const mouseInRef = useRef(false); // Whether the mouse is over the child (highlight)
 
   const { setTip, isEditingOrHighlighting } = usePdfHighlighterContext();

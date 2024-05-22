@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Root } from "react-dom/client";
+import { ReactNode } from 'react';
+import { Root } from 'react-dom/client';
 
 /**
  * A rectangle as measured by the viewport.
@@ -99,7 +99,7 @@ export interface Highlight {
  *
  * @category Type
  */
-export type GhostHighlight = Omit<Highlight, "id">;
+export type GhostHighlight = Omit<Highlight, 'id'>;
 
 /**
  * This represents a rendered highlight, with its position defined by the page
@@ -107,10 +107,7 @@ export type GhostHighlight = Omit<Highlight, "id">;
  *
  * @category Type
  */
-export type ViewportHighlight<T extends Highlight = Highlight> = Omit<
-  T,
-  "position"
-> & {
+export type ViewportHighlight<T extends Highlight = Highlight> = Omit<T, 'position'> & {
   position: ViewportPosition;
 };
 
@@ -162,10 +159,4 @@ export type Tip = {
  *
  * @category Type
  */
-export type PdfScaleValue =
-  | "page-actual"
-  | "page-width"
-  | "page-height"
-  | "page-fit"
-  | "auto"
-  | number;
+export type PdfScaleValue = 'page-actual' | 'page-width' | 'page-height' | 'page-fit' | 'auto' | number;

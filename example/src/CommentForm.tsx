@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 interface CommentFormProps {
   onSubmit: (input: string) => void;
@@ -6,7 +6,7 @@ interface CommentFormProps {
 }
 
 const CommentForm = ({ onSubmit, placeHolder }: CommentFormProps) => {
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
 
   return (
     <form

@@ -1,11 +1,9 @@
-import React, { CSSProperties, MouseEvent } from "react";
-
-import { getPageFromElement } from "../lib/pdfjs-dom";
-
-import "../style/AreaHighlight.css";
-
-import { Rnd } from "react-rnd";
-import type { LTWHP, ViewportHighlight } from "../types";
+import type { CSSProperties, MouseEvent } from 'react';
+import type { LTWHP, ViewportHighlight } from '../types';
+import React from 'react';
+import { Rnd } from 'react-rnd';
+import { getPageFromElement } from '../lib/pdfjs-dom';
+import '../style/AreaHighlight.css';
 
 /**
  * The props type for {@link AreaHighlight}.
@@ -60,16 +58,8 @@ export interface AreaHighlightProps {
  *
  * @category Component
  */
-export const AreaHighlight = ({
-  highlight,
-  onChange,
-  isScrolledTo,
-  bounds,
-  onContextMenu,
-  onEditStart,
-  style,
-}: AreaHighlightProps) => {
-  const highlightClass = isScrolledTo ? "AreaHighlight--scrolledTo" : "";
+export const AreaHighlight = ({ highlight, onChange, isScrolledTo, bounds, onContextMenu, onEditStart, style }: AreaHighlightProps) => {
+  const highlightClass = isScrolledTo ? 'AreaHighlight--scrolledTo' : '';
 
   // Generate key based on position. This forces a remount (and a defaultpos update)
   // whenever highlight position changes (e.g., when updated, scale changes, etc.)
@@ -78,10 +68,7 @@ export const AreaHighlight = ({
   const key = `${highlight.position.boundingRect.width}${highlight.position.boundingRect.height}${highlight.position.boundingRect.left}${highlight.position.boundingRect.top}`;
 
   return (
-    <div
-      className={`AreaHighlight ${highlightClass}`}
-      onContextMenu={onContextMenu}
-    >
+    <div className={`AreaHighlight ${highlightClass}`} onContextMenu={onContextMenu}>
       <Rnd
         className="AreaHighlight__part"
         onDragStop={(_, data) => {

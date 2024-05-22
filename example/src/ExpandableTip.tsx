@@ -1,11 +1,7 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
-import CommentForm from "./CommentForm";
-import {
-  GhostHighlight,
-  PdfSelection,
-  usePdfHighlighterContext,
-} from "./react-pdf-highlighter-extended";
-import "./style/ExpandableTip.css";
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import CommentForm from './CommentForm';
+import { GhostHighlight, PdfSelection, usePdfHighlighterContext } from './react-pdf-highlighter-extended';
+import './style/ExpandableTip.css';
 
 interface ExpandableTipProps {
   addHighlight: (highlight: GhostHighlight, comment: string) => void;
@@ -15,12 +11,7 @@ const ExpandableTip = ({ addHighlight }: ExpandableTipProps) => {
   const [compact, setCompact] = useState(true);
   const selectionRef = useRef<PdfSelection | null>(null);
 
-  const {
-    getCurrentSelection,
-    removeGhostHighlight,
-    setTip,
-    updateTipPosition,
-  } = usePdfHighlighterContext();
+  const { getCurrentSelection, removeGhostHighlight, setTip, updateTipPosition } = usePdfHighlighterContext();
 
   useLayoutEffect(() => {
     updateTipPosition!();

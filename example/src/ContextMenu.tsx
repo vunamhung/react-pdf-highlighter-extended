@@ -1,5 +1,5 @@
-import React from "react";
-import "./style/ContextMenu.css";
+import React from 'react';
+import './style/ContextMenu.css';
 
 export interface ContextMenuProps {
   xPos: any;
@@ -8,12 +8,7 @@ export interface ContextMenuProps {
   deleteHighlight: () => void;
 }
 
-const ContextMenu = ({
-  xPos,
-  yPos,
-  editComment,
-  deleteHighlight,
-}: ContextMenuProps) => {
+const ContextMenu = ({ xPos, yPos, editComment, deleteHighlight }: ContextMenuProps) => {
   return (
     <div className="context-menu" style={{ top: yPos + 2, left: xPos + 2 }}>
       <button onClick={editComment}>Edit Comment</button>

@@ -1,8 +1,8 @@
-import React, { CSSProperties, MouseEvent } from "react";
+import React, { CSSProperties, MouseEvent } from 'react';
 
-import "../style/TextHighlight.css";
+import '../style/TextHighlight.css';
 
-import type { ViewportHighlight } from "../types";
+import type { ViewportHighlight } from '../types';
 
 /**
  * The props type for {@link TextHighlight}.
@@ -60,23 +60,12 @@ export interface TextHighlightProps {
  *
  * @category Component
  */
-export const TextHighlight = ({
-  highlight,
-  onClick,
-  onMouseOver,
-  onMouseOut,
-  isScrolledTo,
-  onContextMenu,
-  style,
-}: TextHighlightProps) => {
-  const highlightClass = isScrolledTo ? "TextHighlight--scrolledTo" : "";
+export const TextHighlight = ({ highlight, onClick, onMouseOver, onMouseOut, isScrolledTo, onContextMenu, style }: TextHighlightProps) => {
+  const highlightClass = isScrolledTo ? 'TextHighlight--scrolledTo' : '';
   const { rects } = highlight.position;
 
   return (
-    <div
-      className={`TextHighlight ${highlightClass}`}
-      onContextMenu={onContextMenu}
-    >
+    <div className={`TextHighlight ${highlightClass}`} onContextMenu={onContextMenu}>
       <div className="TextHighlight__parts">
         {rects.map((rect, index) => (
           <div

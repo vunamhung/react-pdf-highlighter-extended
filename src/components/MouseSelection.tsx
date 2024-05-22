@@ -1,12 +1,11 @@
-import React, { CSSProperties, useEffect, useRef, useState } from "react";
-
-import { asElement, getPageFromElement, isHTMLElement } from "../lib/pdfjs-dom";
-import "../style/MouseSelection.css";
-
-import { PDFViewer } from "pdfjs-dist/types/web/pdf_viewer";
-import { viewportPositionToScaled } from "../lib/coordinates";
-import screenshot from "../lib/screenshot";
-import type { LTWH, LTWHP, ScaledPosition, ViewportPosition } from "../types";
+import type { CSSProperties } from 'react';
+import type { LTWH, LTWHP, ScaledPosition, ViewportPosition } from '../types';
+import type { PDFViewer } from 'pdfjs-dist/types/web/pdf_viewer';
+import React, { useEffect, useRef, useState } from 'react';
+import { viewportPositionToScaled } from '../lib/coordinates';
+import { asElement, getPageFromElement, isHTMLElement } from '../lib/pdfjs-dom';
+import screenshot from '../lib/screenshot';
+import '../style/MouseSelection.css';
 
 type Coords = {
   x: number;
@@ -23,11 +22,7 @@ const getBoundingRect = (start: Coords, end: Coords): LTWH => {
   };
 };
 
-const getContainerCoords = (
-  container: HTMLElement,
-  pageX: number,
-  pageY: number,
-) => {
+const getContainerCoords = (container: HTMLElement, pageX: number, pageY: number) => {
   const containerBoundingRect = container.getBoundingClientRect();
   return {
     x: pageX - containerBoundingRect.left + container.scrollLeft,
@@ -58,13 +53,7 @@ export interface MouseSelectionProps {
    * @param resetSelection - Callback to reset the current selection.
    * @param event - Mouse event associated with ending the selection.
    */
-  onSelection?(
-    viewportPosition: ViewportPosition,
-    scaledPosition: ScaledPosition,
-    image: string,
-    resetSelection: () => void,
-    event: MouseEvent,
-  ): void;
+  onSelection?(viewportPosition: ViewportPosition, scaledPosition: ScaledPosition, image: string, resetSelection: () => void, event: MouseEvent): void;
 
   /**
    * Callback triggered whenever the current mouse selection is reset.
@@ -109,15 +98,7 @@ export interface MouseSelectionProps {
  * @category Component
  * @internal
  */
-export const MouseSelection = ({
-  viewer,
-  onSelection,
-  onReset,
-  onDragStart,
-  enableAreaSelection,
-  onChange,
-  style,
-}: MouseSelectionProps) => {
+export const MouseSelection = ({ viewer, onSelection, onReset, onDragStart, enableAreaSelection, onChange, style }: MouseSelectionProps) => {
   const [start, setStart] = useState<Coords | null>(null);
   const [end, setEnd] = useState<Coords | null>(null);
   const [locked, setLocked] = useState(false);
@@ -174,14 +155,9 @@ export const MouseSelection = ({
 
       const scaledPosition = viewportPositionToScaled(viewportPosition, viewer);
 
-      const image = screenshot(
-        pageBoundingRect,
-        pageBoundingRect.pageNumber,
-        viewer,
-      );
+      const image = screenshot(pageBoundingRect, pageBoundingRect.pageNumber, viewer);
 
-      onSelection &&
-        onSelection(viewportPosition, scaledPosition, image, reset, event);
+      onSelection && onSelection(viewportPosition, scaledPosition, image, reset, event);
     };
 
     const handleMouseMove = (event: MouseEvent) => {
@@ -191,14 +167,10 @@ export const MouseSelection = ({
 
     const handleMouseDown = (event: MouseEvent) => {
       const shouldStart = (event: MouseEvent) =>
-        enableAreaSelection(event) &&
-        isHTMLElement(event.target) &&
-        Boolean(asElement(event.target).closest(".page"));
+        enableAreaSelection(event) && isHTMLElement(event.target) && Boolean(asElement(event.target).closest('.page'));
 
       // If the user clicks anywhere outside a tip, reset the selection
-      const shouldReset = (event: MouseEvent) =>
-        start &&
-        !asElement(event.target).closest(".PdfHighlighter__tip-container");
+      const shouldReset = (event: MouseEvent) => start && !asElement(event.target).closest('.PdfHighlighter__tip-container');
 
       if (!shouldStart(event)) {
         if (shouldReset(event)) reset();
@@ -220,26 +192,21 @@ export const MouseSelection = ({
      * we can't avoid using useEffect. We must re-register all events on state changes, as
      * custom event listeners may otherwise receive stale state.
      */
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mousedown", handleMouseDown);
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mousedown', handleMouseDown);
 
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mouseup", handleMouseUp);
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [start, end]);
 
   return (
     <div className="MouseSelection-container" ref={rootRef}>
-      {start && end && (
-        <div
-          className="MouseSelection"
-          style={{ ...getBoundingRect(start, end), ...style }}
-        />
-      )}
+      {start && end && <div className="MouseSelection" style={{ ...getBoundingRect(start, end), ...style }} />}
     </div>
   );
 };

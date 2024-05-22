@@ -1,14 +1,8 @@
-import { PDFViewer } from "pdfjs-dist/types/web/pdf_viewer";
-import React, {
-  MutableRefObject,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { usePdfHighlighterContext } from "../contexts/PdfHighlighterContext";
+import { PDFViewer } from 'pdfjs-dist/types/web/pdf_viewer';
+import React, { MutableRefObject, useLayoutEffect, useRef, useState } from 'react';
+import { usePdfHighlighterContext } from '../contexts/PdfHighlighterContext';
 
-const clamp = (value: number, left: number, right: number) =>
-  Math.min(Math.max(value, left), right);
+const clamp = (value: number, left: number, right: number) => Math.min(Math.max(value, left), right);
 
 const VERTICAL_PADDING = 5;
 
@@ -38,10 +32,7 @@ export interface TipContainerProps {
  * @category Component
  * @internal
  */
-export const TipContainer = ({
-  viewer,
-  updateTipPositionRef,
-}: TipContainerProps) => {
+export const TipContainer = ({ viewer, updateTipPositionRef }: TipContainerProps) => {
   const [height, setHeight] = useState(0);
   const [width, setWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -80,9 +71,7 @@ export const TipContainer = ({
 
   // Determine whether the tip should be moved below the highlight
   const shouldMove = highlightTop - height - VERTICAL_PADDING < scrollTop; // Would the tip render beyond the top of the visible document?
-  const top = shouldMove
-    ? highlightBottom + VERTICAL_PADDING
-    : highlightTop - height - VERTICAL_PADDING;
+  const top = shouldMove ? highlightBottom + VERTICAL_PADDING : highlightTop - height - VERTICAL_PADDING;
 
   // Ensure the tip stays within the left edge of the viewer and the right edge of the page
   const clampedLeft = clamp(left - width / 2, 0, pageLeft + pageWidth - width);
@@ -93,8 +82,8 @@ export const TipContainer = ({
       style={{
         top,
         left: clampedLeft,
-        height: "max-content",
-        width: "max-content",
+        height: 'max-content',
+        width: 'max-content',
       }}
       ref={containerRef}
     >

@@ -1,4 +1,4 @@
-import type { LTWHP } from "../types.js";
+import type { LTWHP } from '../types.js';
 
 const sort = (rects: Array<LTWHP>) =>
   rects.sort((A, B) => {
@@ -11,33 +11,19 @@ const sort = (rects: Array<LTWHP>) =>
     return top;
   });
 
-const overlaps = (A: LTWHP, B: LTWHP) =>
-  A.pageNumber === B.pageNumber &&
-  A.left <= B.left &&
-  B.left <= A.left + A.width;
+const overlaps = (A: LTWHP, B: LTWHP) => A.pageNumber === B.pageNumber && A.left <= B.left && B.left <= A.left + A.width;
 
 const sameLine = (A: LTWHP, B: LTWHP, yMargin = 5) =>
-  A.pageNumber === B.pageNumber &&
-  Math.abs(A.top - B.top) < yMargin &&
-  Math.abs(A.height - B.height) < yMargin;
+  A.pageNumber === B.pageNumber && Math.abs(A.top - B.top) < yMargin && Math.abs(A.height - B.height) < yMargin;
 
 const inside = (A: LTWHP, B: LTWHP) =>
-  A.pageNumber === B.pageNumber &&
-  A.top > B.top &&
-  A.left > B.left &&
-  A.top + A.height < B.top + B.height &&
-  A.left + A.width < B.left + B.width;
+  A.pageNumber === B.pageNumber && A.top > B.top && A.left > B.left && A.top + A.height < B.top + B.height && A.left + A.width < B.left + B.width;
 
 const nextTo = (A: LTWHP, B: LTWHP, xMargin = 10) => {
   const Aright = A.left + A.width;
   const Bright = B.left + B.width;
 
-  return (
-    A.pageNumber === B.pageNumber &&
-    A.left <= B.left &&
-    Aright <= Bright &&
-    B.left - Aright <= xMargin
-  );
+  return A.pageNumber === B.pageNumber && A.left <= B.left && Aright <= Bright && B.left - Aright <= xMargin;
 };
 
 const extendWidth = (A: LTWHP, B: LTWHP) => {

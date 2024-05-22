@@ -1,11 +1,11 @@
-import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react";
+import reactRefresh from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: "/react-pdf-highlighter-extended/example-app/",
+  base: '/react-pdf-highlighter-extended/example-app/',
   build: {
-    target: "esnext",
-    outDir: "example-app",
+    target: 'esnext',
+    outDir: 'example-app',
   },
   plugins: [reactRefresh()],
   server: {
@@ -13,7 +13,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     esbuildOptions: {
-      target: "esnext",
+      target: 'esnext',
     },
   },
   define: {

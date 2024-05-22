@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
-import { GhostHighlight, Highlight, PdfSelection, Tip } from "../types";
-import { PDFViewer } from "pdfjs-dist/types/web/pdf_viewer";
+import { createContext, useContext } from 'react';
+import { GhostHighlight, Highlight, PdfSelection, Tip } from '../types';
+import { PDFViewer } from 'pdfjs-dist/types/web/pdf_viewer';
 
 /**
  * A set of utilities for to control the behaviour of {@link PdfHighlighter}.
@@ -91,9 +91,7 @@ export type PdfHighlighterUtils = {
   updateTipPosition(): void;
 };
 
-export const PdfHighlighterContext = createContext<
-  PdfHighlighterUtils | undefined
->(undefined);
+export const PdfHighlighterContext = createContext<PdfHighlighterUtils | undefined>(undefined);
 
 /**
  * Custom hook for providing {@link PdfHighlighterUtils}. Must be used
@@ -105,9 +103,7 @@ export const usePdfHighlighterContext = () => {
   const pdfHighlighterUtils = useContext(PdfHighlighterContext);
 
   if (pdfHighlighterUtils === undefined) {
-    throw new Error(
-      "usePdfHighlighterContext must be used within PdfHighlighter!",
-    );
+    throw new Error('usePdfHighlighterContext must be used within PdfHighlighter!');
   }
 
   return pdfHighlighterUtils;

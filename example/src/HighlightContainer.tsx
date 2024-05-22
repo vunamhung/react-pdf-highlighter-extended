@@ -1,53 +1,30 @@
-import React, { MouseEvent } from "react";
-import HighlightPopup from "./HighlightPopup";
+import React, { MouseEvent } from 'react';
+import HighlightPopup from './HighlightPopup';
 import {
   AreaHighlight,
   MonitoredHighlightContainer,
   TextHighlight,
   Tip,
-  ViewportHighlight,
   useHighlightContainerContext,
   usePdfHighlighterContext,
-} from "./react-pdf-highlighter-extended";
-import { CommentedHighlight } from "./types";
+  ViewportHighlight,
+} from './react-pdf-highlighter-extended';
+import { CommentedHighlight } from './types';
 
 interface HighlightContainerProps {
-  editHighlight: (
-    idToUpdate: string,
-    edit: Partial<CommentedHighlight>,
-  ) => void;
-  onContextMenu?: (
-    event: MouseEvent<HTMLDivElement>,
-    highlight: ViewportHighlight,
-  ) => void;
+  editHighlight: (idToUpdate: string, edit: Partial<CommentedHighlight>) => void;
+  onContextMenu?: (event: MouseEvent<HTMLDivElement>, highlight: ViewportHighlight) => void;
 }
 
-const HighlightContainer = ({
-  editHighlight,
-  onContextMenu,
-}: HighlightContainerProps) => {
-  const {
-    highlight,
-    viewportToScaled,
-    screenshot,
-    isScrolledTo,
-    highlightBindings,
-  } = useHighlightContainerContext<CommentedHighlight>();
+const HighlightContainer = ({ editHighlight, onContextMenu }: HighlightContainerProps) => {
+  const { highlight, viewportToScaled, screenshot, isScrolledTo, highlightBindings } = useHighlightContainerContext<CommentedHighlight>();
 
   const { toggleEditInProgress } = usePdfHighlighterContext();
 
-  const isTextHighlight = !Boolean(
-    highlight.content && highlight.content.image,
-  );
+  const isTextHighlight = !Boolean(highlight.content && highlight.content.image);
 
   const component = isTextHighlight ? (
-    <TextHighlight
-      isScrolledTo={isScrolledTo}
-      highlight={highlight}
-      onContextMenu={(event) =>
-        onContextMenu && onContextMenu(event, highlight)
-      }
-    />
+    <TextHighlight isScrolledTo={isScrolledTo} highlight={highlight} onContextMenu={(event) => onContextMenu && onContextMenu(event, highlight)} />
   ) : (
     <AreaHighlight
       isScrolledTo={isScrolledTo}
@@ -67,9 +44,7 @@ const HighlightContainer = ({
         toggleEditInProgress(false);
       }}
       bounds={highlightBindings.textLayer}
-      onContextMenu={(event) =>
-        onContextMenu && onContextMenu(event, highlight)
-      }
+      onContextMenu={(event) => onContextMenu && onContextMenu(event, highlight)}
       onEditStart={() => toggleEditInProgress(true)}
     />
   );
@@ -79,13 +54,7 @@ const HighlightContainer = ({
     content: <HighlightPopup highlight={highlight} />,
   };
 
-  return (
-    <MonitoredHighlightContainer
-      highlightTip={highlightTip}
-      key={highlight.id}
-      children={component}
-    />
-  );
+  return <MonitoredHighlightContainer highlightTip={highlightTip} key={highlight.id} children={component} />;
 };
 
 export default HighlightContainer;

@@ -1,12 +1,5 @@
-import { createContext, useContext } from "react";
-import {
-  Highlight,
-  HighlightBindings,
-  LTWH,
-  LTWHP,
-  Scaled,
-  ViewportHighlight,
-} from "../types";
+import { createContext, useContext } from 'react';
+import { Highlight, HighlightBindings, LTWH, LTWHP, Scaled, ViewportHighlight } from '../types';
 
 /**
  * A set of utilities for rendering highlights. Designed to be used within a
@@ -47,9 +40,7 @@ export type HighlightContainerUtils<T extends Highlight = Highlight> = {
   highlightBindings: HighlightBindings;
 };
 
-export const HighlightContext = createContext<
-  HighlightContainerUtils | undefined
->(undefined);
+export const HighlightContext = createContext<HighlightContainerUtils | undefined>(undefined);
 
 /**
  * Custom hook for providing {@link HighlightContainerUtils}. Must be used
@@ -57,15 +48,11 @@ export const HighlightContext = createContext<
  *
  * @category Context
  */
-export const useHighlightContainerContext = <
-  T extends Highlight = Highlight,
->() => {
+export const useHighlightContainerContext = <T extends Highlight = Highlight>() => {
   const highlightContainerUtils = useContext(HighlightContext);
 
   if (highlightContainerUtils === undefined) {
-    throw new Error(
-      "useHighlightContainerContext must be used within a child of PdfHighlighter!",
-    );
+    throw new Error('useHighlightContainerContext must be used within a child of PdfHighlighter!');
   }
 
   return highlightContainerUtils as HighlightContainerUtils<T>;
