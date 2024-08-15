@@ -11,7 +11,7 @@ import { testHighlights as _testHighlights } from './test-highlights';
 import { CommentedHighlight } from './types';
 
 const TEST_HIGHLIGHTS = _testHighlights;
-const PRIMARY_PDF_URL = 'https://arxiv.org/pdf/2203.11115';
+const PRIMARY_PDF_URL = 'http://localhost:3000/react-pdf-highlighter-extended/example-app/sample.pdf';
 const SECONDARY_PDF_URL = 'https://arxiv.org/pdf/1604.02480';
 const LONG_LOADING_PDF_URL = 'https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK';
 
@@ -27,7 +27,47 @@ const resetHash = () => {
 
 const App = () => {
   const [url, setUrl] = useState(PRIMARY_PDF_URL);
-  const [highlights, setHighlights] = useState<Array<CommentedHighlight>>(TEST_HIGHLIGHTS[PRIMARY_PDF_URL] ?? []);
+  const [highlights, setHighlights] = useState<Array<CommentedHighlight>>([
+    {
+      content: { text: '{"x1": 93.8688, "x2": 471.78239999999994, "y1": 103.2672, "y2": 180.1248, "width": 816.0, "height": 1056.0, "pageNumber":10}' },
+      position: {
+        boundingRect: { x1: 93.8688, x2: 471.78239999999994, y1: 103.2672, y2: 180.1248, width: 816.0, height: 1056.0, pageNumber: 1 },
+        rects: [
+          { x1: 93.8688, x2: 471.78239999999994, y1: 103.2672, y2: 180.1248, width: 816.0, height: 1056.0, pageNumber: 1 },
+          { x1: 93.7728, x2: 721.248, y1: 203.9616, y2: 420.288, width: 816.0, height: 1056.0, pageNumber: 1 },
+        ],
+      },
+      comment: '{"x1": 93.8688, "x2": 471.78239999999994, "y1": 103.2672, "y2": 180.1248, "width": 816.0, "height": 1056.0, "pageNumber":10}',
+      id: '6806537e-05f6-4cf7-d6a4-67439590640d',
+    },
+    {
+      content: { text: '{"x1": 94.00319999999999, "x2": 720.6336, "y1": 443.664, "y2": 601.6416, "width": 816.0, "height": 1056.0, "pageNumber":10}' },
+      position: {
+        boundingRect: { x1: 94.00319999999999, x2: 720.6336, y1: 443.664, y2: 601.6416, width: 816.0, height: 1056.0, pageNumber: 1 },
+        rects: [{ x1: 94.00319999999999, x2: 720.6336, y1: 443.664, y2: 601.6416, width: 816.0, height: 1056.0, pageNumber: 1 }],
+      },
+      comment: '{"x1": 94.00319999999999, "x2": 720.6336, "y1": 443.664, "y2": 601.6416, "width": 816.0, "height": 1056.0, "pageNumber":10}',
+      id: '18cdbf3e-761e-6308-908c-7924a3f41d2a',
+    },
+    {
+      content: { text: '{"x1": 94.0992, "x2": 721.0944, "y1": 623.7888, "y2": 801.2736, "width": 816.0, "height": 1056.0, "pageNumber":10}' },
+      position: {
+        boundingRect: { x1: 94.0992, x2: 721.0944, y1: 623.7888, y2: 801.2736, width: 816.0, height: 1056.0, pageNumber: 1 },
+        rects: [{ x1: 94.0992, x2: 721.0944, y1: 623.7888, y2: 801.2736, width: 816.0, height: 1056.0, pageNumber: 1 }],
+      },
+      comment: '{"x1": 94.0992, "x2": 721.0944, "y1": 623.7888, "y2": 801.2736, "width": 816.0, "height": 1056.0, "pageNumber":10}',
+      id: 'a204dda1-b93e-fc63-c7ce-4b64ec929e4f',
+    },
+    {
+      content: { text: '{"x1": 94.43520000000001, "x2": 720.6432, "y1": 823.6224, "y2": 940.9632, "width": 816.0, "height": 1056.0, "pageNumber":10}' },
+      position: {
+        boundingRect: { x1: 94.43520000000001, x2: 720.6432, y1: 823.6224, y2: 940.9632, width: 816.0, height: 1056.0, pageNumber: 1 },
+        rects: [{ x1: 94.43520000000001, x2: 720.6432, y1: 823.6224, y2: 940.9632, width: 816.0, height: 1056.0, pageNumber: 1 }],
+      },
+      comment: '{"x1": 94.43520000000001, "x2": 720.6432, "y1": 823.6224, "y2": 940.9632, "width": 816.0, "height": 1056.0, "pageNumber":10}',
+      id: '61c52eaa-a032-6b25-f5f9-fe74cae392ca',
+    },
+  ]);
   const currentPdfIndexRef = useRef(0);
   const [contextMenu, setContextMenu] = useState<ContextMenuProps | null>(null);
   const [pdfScaleValue, setPdfScaleValue] = useState<number | undefined>(undefined);
